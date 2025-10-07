@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Vocabulary Helper",
   "version": "1.0",
-  "description": "Shows meaning and plays pronunciation on hover using Google",
+  "description": "Shows meaning and plays pronunciation on hover",
   "permissions": ["activeTab", "storage"],
   "content_scripts": [
     {

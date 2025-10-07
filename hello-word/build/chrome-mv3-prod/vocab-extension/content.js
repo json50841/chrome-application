@@ -1,1 +1,31 @@
-const popup=document.createElement("div");popup.style.position="absolute";popup.style.background="#fff";popup.style.border="1px solid #333";popup.style.padding="10px";popup.style.zIndex=10000;popup.style.display="none";document.body.appendChild(popup);document.body.addEventListener("mouseover",async(e)=>{const word=e.target.innerText.trim();if(!word)return;const response=await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);if(!response.ok)return;const data=await response.json();const meaning=data[0]?.meanings[0]?.definitions[0]?.definition||"No definition found";const audioUrl=data[0]?.phonetics[0]?.audio||"";popup.innerHTML=`<strong>${word}</strong><br>${meaning}`;popup.style.top=`${e.pageY+10}px`;popup.style.left=`${e.pageX+10}px`;popup.style.display="block";if(audioUrl)new Audio(audioUrl).play();});document.body.addEventListener("mouseout",()=>{popup.style.display="none";});
+const popup = document.createElement("div");
+popup.style.position = "absolute";
+popup.style.background = "#fff";
+popup.style.border = "1px solid #333";
+popup.style.padding = "10px";
+popup.style.zIndex = 10000;
+popup.style.display = "none";
+document.body.appendChild(popup);
+
+document.body.addEventListener("mouseover", async (e) => {
+  const word = e.target.innerText.trim();
+  if (!word) return;
+
+  const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+  if (!response.ok) return;
+  const data = await response.json();
+
+  const meaning = data[0]?.meanings[0]?.definitions[0]?.definition || "No definition found";
+  const audioUrl = data[0]?.phonetics[0]?.audio || "";
+
+  popup.innerHTML = `<strong>${word}</strong><br>${meaning}`;
+  popup.style.top = `${e.pageY + 10}px`;
+  popup.style.left = `${e.pageX + 10}px`;
+  popup.style.display = "block";
+
+  if (audioUrl) new Audio(audioUrl).play();
+});
+
+document.body.addEventListener("mouseout", () => {
+  popup.style.display = "none";
+});
